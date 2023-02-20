@@ -18,7 +18,7 @@ public class File_loader {
 			String linea = reader.readLine();
 			while(linea != null) 
 			{
-				text+=linea;
+				text+=";"+linea;
 				linea = reader.readLine();
 			}
 			reader.close();

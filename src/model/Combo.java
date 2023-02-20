@@ -21,7 +21,7 @@ public class Combo implements Producto{
 	
 	public int getPrecio() 
 	{
-		int precioFinal;
+		int precioFinal=0;
 		//calcular el precio final basado en los productos del combo
 		
 		return precioFinal;

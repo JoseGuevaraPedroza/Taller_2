@@ -32,17 +32,17 @@ public class Pedido {
 	
 	private int getPrecioNetoPedido() 
 	{
-		
+		return 0;
 	}
 	
 	private int getPrecioTotalPedido() 
 	{
-		
+		return 0;
 	}
 	
 	private int getPrecioIVAPedido() 
 	{
-		
+		return 0;
 	}
 	
 }
