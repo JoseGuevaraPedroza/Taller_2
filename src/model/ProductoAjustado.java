@@ -13,13 +13,19 @@ public class ProductoAjustado implements Producto{
 	@Override
 	public int getPrecio() {
 		// TODO Auto-generated method stub
-		return 0;
+		int precioBase=this.base.getPrecio();
+		int precioAgregado=0;
+		for (Ingrediente i: this.agregados) 
+		{
+			precioAgregado+=i.getCostoAdicional();
+		}
+		return precioBase+precioAgregado;
 	}
 
 	@Override
 	public String getNombre() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.base.getNombre();
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Pedido {
 
-	private int numeroPedidos;
+	private static int numeroPedidos;
 	private int idPedido;
 	private String nombreCliente;
 	private String direccionCliente;
@@ -13,6 +13,10 @@ public class Pedido {
 	
 	public Pedido(String nombreCliente, String direccionCliente) {
 		// TODO Auto-generated constructor stub
+		this.nombreCliente = nombreCliente;
+		this.direccionCliente = direccionCliente;
+		this.idPedido=Pedido.numeroPedidos+1;
+		Pedido.numeroPedidos+=1;
 	}
 	
 	public int getIdPedido() 
@@ -22,27 +26,34 @@ public class Pedido {
 	
 	public void agregarProducto(Producto nuevoItem) 
 	{
-		
+		this.itemsPedido.add(nuevoItem);
 	}
 	
 	public void guardarFactura(File archivo) 
 	{
-		
+		int precioFactura=this.getPrecioTotalPedido();
+		//generar texto de la factura
 	}
 	
 	private int getPrecioNetoPedido() 
 	{
-		return 0;
+		int precio=0;
+		for (Producto p: this.itemsPedido) 
+		{
+			precio+=p.getPrecio();
+		}
+		return precio;
 	}
 	
 	private int getPrecioTotalPedido() 
 	{
-		return 0;
+		return this.getPrecioNetoPedido()+this.getPrecioIVAPedido();
 	}
 	
 	private int getPrecioIVAPedido() 
 	{
-		return 0;
+		int iva=(int) Math.round(this.getPrecioNetoPedido()*0.19);
+		return iva;
 	}
 	
 }

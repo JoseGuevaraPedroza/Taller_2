@@ -23,6 +23,10 @@ public class Combo implements Producto{
 	{
 		int precioFinal=0;
 		//calcular el precio final basado en los productos del combo
+		for(Producto p: this.itemsCombo) 
+		{
+			precioFinal+= p.getPrecio();
+		}
 		
 		return precioFinal;
 	}

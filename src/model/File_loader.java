@@ -16,9 +16,11 @@ public class File_loader {
 		try {
 			BufferedReader reader =new BufferedReader(new FileReader(filepath));
 			String linea = reader.readLine();
+			boolean first=false;
 			while(linea != null) 
 			{
-				text+=";"+linea;
+				if(first == false) {text+=linea; first = true;}
+				else {text+=";"+linea;}
 				linea = reader.readLine();
 			}
 			reader.close();
