@@ -40,6 +40,6 @@ public class Combo implements Producto{
 	@Override
 	public String generarTextoFactura() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.nombreCombo+"-"+this.getPrecio();
 	}
 }

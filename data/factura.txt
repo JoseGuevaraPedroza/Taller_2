@@ -1,0 +1,4 @@
+Nombre de cliente: ee. Direccion: ff
+ID: 2
+combo todoterreno-36900(Agregados: )(Eliminados: )
+Precio neto: 36900   IVA: 7011 Valor total de la compra: 43911

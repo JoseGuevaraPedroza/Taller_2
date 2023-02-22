@@ -9,7 +9,7 @@ public class Restaurante {
 	private HashMap<String, Combo> combos = new HashMap<String, Combo>();
 	private HashMap<String, Ingrediente> ingredientes = new HashMap<String, Ingrediente>();
 	private HashMap<String,Producto> menuBase = new HashMap<String, Producto>();
-	private HashMap<Integer, Pedido>  pedidos = new HashMap<Integer, Pedido>();
+	public HashMap<Integer, Pedido>  pedidos = new HashMap<Integer, Pedido>();
 	//---------------------------------
 	public Pedido pedidoEnCurso;
 

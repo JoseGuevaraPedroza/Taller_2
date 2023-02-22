@@ -5,10 +5,15 @@ import java.util.ArrayList;
 public class ProductoAjustado implements Producto{
 	
 	//atributos
-	private ProductoMenu base;
+	private Producto base;
 	
-	public ArrayList<Ingrediente> agregados;
-	public ArrayList<Ingrediente> eliminados;
+	public ArrayList<Ingrediente> agregados = new ArrayList<Ingrediente>();
+	public ArrayList<Ingrediente> eliminados = new ArrayList<Ingrediente>();
+	
+	public ProductoAjustado(Producto menuBase) 
+	{
+		this.base=menuBase;
+	}
 	
 	@Override
 	public int getPrecio() {
@@ -31,7 +36,18 @@ public class ProductoAjustado implements Producto{
 	@Override
 	public String generarTextoFactura() {
 		// TODO Auto-generated method stub
-		return null;
+		String textoAgregados="";
+		String textoEliminados="";
+		for(Ingrediente i: this.agregados) 
+		{
+			textoAgregados+= i.getNombre()+",";
+		}
+		for(Ingrediente i: this.eliminados) 
+		{
+			textoEliminados+= i.getNombre()+",";
+		}
+		return this.getNombre()+"-"+this.getPrecio()+ "(Agregados: "+textoAgregados+")"+
+		"(Eliminados: "+textoEliminados+")";
 	}
 	
 }

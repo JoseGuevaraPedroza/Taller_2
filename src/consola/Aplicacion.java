@@ -7,13 +7,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import model.Combo;
+import model.Ingrediente;
+import model.Pedido;
 import model.Producto;
+import model.ProductoAjustado;
 import model.Restaurante;
 
 public class Aplicacion {
 
 	private Restaurante restaurante;
-	private ArrayList<Producto> itemsPedido= new ArrayList<Producto>();
+	private ArrayList<ProductoAjustado> itemsPedido= new ArrayList<ProductoAjustado>();
+	private boolean running;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		
 		//instancias requeridas para el funcionamiento de la aplicacion
@@ -21,11 +25,11 @@ public class Aplicacion {
 		Aplicacion app = new Aplicacion();
 		app.restaurante= new Restaurante();
 		//variables-------------------
-		boolean running = true;
+		app.running = true;
 		int opcion;
 		
 		// TODO Auto-generated method stub
-		while(running) 
+		while(app.running) 
 		{
 			app.mostrarMenu();
 			opcion = Integer.parseInt(rd.readLine());
@@ -76,8 +80,9 @@ public class Aplicacion {
 					}
 					System.out.println("Indice del elemento a agregar:");
 					int op=Integer.parseInt(rd.readLine());
-					this.restaurante.pedidoEnCurso.agregarProducto(pMenu.get(op));
-					this.itemsPedido.add(pMenu.get(op));
+					ProductoAjustado pA= new ProductoAjustado(pMenu.get(op));
+					this.restaurante.pedidoEnCurso.agregarProducto(pA);
+					this.itemsPedido.add(pA);
 				}
 				else if(opcion == 2) 
 				{
@@ -89,15 +94,45 @@ public class Aplicacion {
 					}
 					System.out.println("Indice del elemento a agregar:");
 					int op=Integer.parseInt(rd.readLine());
-					this.restaurante.pedidoEnCurso.agregarProducto(pMenu.get(op));
-					this.itemsPedido.add(pMenu.get(op));
+					ProductoAjustado pA= new ProductoAjustado(pMenu.get(op));
+					this.restaurante.pedidoEnCurso.agregarProducto(pA);
+					this.itemsPedido.add(pA);
 				}
 				else if(opcion==3) 
 				{
-					for(Producto p: this.itemsPedido) 
+					System.out.println("Que elemento desea modificar:");
+					for(ProductoAjustado p: this.itemsPedido) 
 					{
 						int index=this.itemsPedido.indexOf(p);
 						System.out.println(index+"-"+p.getNombre()+" : "+ p.getPrecio());
+					}
+					int op=Integer.parseInt(rd.readLine());
+					ProductoAjustado z= this.itemsPedido.get(op);
+					System.out.println("Opciones:\n1. Agregar ingrediente.\n2. Eliminar ingrediente");
+					int op2=Integer.parseInt(rd.readLine());
+					if (op2 ==1) 
+					{
+						ArrayList<Ingrediente> pMenu=this.restaurante.getIngredientes();
+						for(Ingrediente i: pMenu) 
+						{
+							int index=pMenu.indexOf(i);
+							System.out.println(index+"-"+i.getNombre()+" : "+ i.getCostoAdicional());
+						}
+						System.out.println("Indice del elemento a agregar:");
+						op2=Integer.parseInt(rd.readLine());
+						z.agregados.add(pMenu.get(op2));
+					}
+					else if (op2 ==2) 
+					{
+						ArrayList<Ingrediente> pMenu=this.restaurante.getIngredientes();
+						for(Ingrediente i: pMenu) 
+						{
+							int index=pMenu.indexOf(i);
+							System.out.println(index+"-"+i.getNombre()+" : "+ i.getCostoAdicional());
+						}
+						System.out.println("Indice del elemento a eliminar:");
+						op2=Integer.parseInt(rd.readLine());
+						z.eliminados.add(pMenu.get(op2));
 					}
 				}
 			}else 
@@ -105,6 +140,21 @@ public class Aplicacion {
 				System.out.println("Error: No hay pedidos en curso");
 			}
 				break;
+		case 3:
+			File savepath= new File("data/factura.txt");
+			this.restaurante.pedidoEnCurso.guardarFactura(savepath);
+			this.restaurante.cerrarYGuardarPedido();
+			break;
+		case 4:
+			File save= new File("data/factura.txt");
+			System.out.println("Indique el ID del pedido:");
+			int op=Integer.parseInt(rd.readLine());
+			Pedido p= this.restaurante.pedidos.get(op);
+			p.guardarFactura(save);
+			break;
+		case 5:
+			this.running=false;
+			break;
 		default:
 			System.out.println("Error, escoja una opcion valida");
 			break;

@@ -1,6 +1,8 @@
 package model;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Pedido {
@@ -29,10 +31,19 @@ public class Pedido {
 		this.itemsPedido.add(nuevoItem);
 	}
 	
-	public void guardarFactura(File archivo) 
+	public void guardarFactura(File archivo) throws IOException 
 	{
-		int precioFactura=this.getPrecioTotalPedido();
+		String textoFactura="Nombre de cliente: "+ this.nombreCliente+". Direccion: "+this.direccionCliente+"\n"+
+	"ID: "+ this.idPedido+"\n";
 		//generar texto de la factura
+		for(Producto p : this.itemsPedido) 
+		{
+			textoFactura+= p.generarTextoFactura()+"\n";
+		}
+		textoFactura+= "Precio neto: " + this.getPrecioNetoPedido()+
+				 "   IVA: "+ this.getPrecioIVAPedido()+ " Valor total de la compra: "
+				+ this.getPrecioTotalPedido();
+		System.out.println(textoFactura+"\n");
 	}
 	
 	private int getPrecioNetoPedido() 
